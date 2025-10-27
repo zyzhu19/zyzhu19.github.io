@@ -178,5 +178,61 @@
             <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=R-bb3RjRQip9WtxOp98jvc3cR0Z6QEyrJUsVvn_MQn8"></script>
         </div>
     </footer>
+	
+    <script>
+    // 将论文条目按页内提取到的年份自动分组并按年份降序显示，同时按显示顺序顺序编号
+    (function() {
+        const list = document.getElementById('papers-list');
+        if (!list) return;
+
+        const items = Array.from(list.querySelectorAll('li'));
+        // 正则匹配年份（例如 2021、1999 等）
+        const yearRegex = /\b(19|20)\d{2}\b/;
+        const groups = {};
+
+        items.forEach(li => {
+            const text = li.textContent || '';
+            const match = text.match(yearRegex);
+            const year = match ? match[0] : '未标注年份';
+            if (!groups[year]) groups[year] = [];
+            groups[year].push(li);
+        });
+
+        // 对年份进行排序，数字年份降序，"未标注年份"放在最后
+        const years = Object.keys(groups).sort((a, b) => {
+            if (a === '未标注年份') return 1;
+            if (b === '未标注年份') return -1;
+            return parseInt(b, 10) - parseInt(a, 10);
+        });
+
+        // 创建新容器并插入分组内容
+        const container = document.createElement('div');
+        container.className = 'papers-by-year';
+
+        // 顺序编号计数器（按页面显示顺序从 1 开始）
+        let counter = 1;
+
+        years.forEach(year => {
+            const h3 = document.createElement('h3');
+            h3.textContent = year;
+            container.appendChild(h3);
+
+            const ul = document.createElement('ul');
+            groups[year].forEach(li => {
+                // 将原始 li 元素移动到新的列表中（保持其 innerHTML），并在前面加上顺序编号
+                const newLi = document.createElement('li');
+                // 使用 span 保持样式自定义
+                newLi.innerHTML = '<span class="paper-index">' + (counter++) + '.</span> ' + li.innerHTML;
+                ul.appendChild(newLi);
+            });
+            container.appendChild(ul);
+        });
+
+        // 替换原始 flat list
+        const papersContainer = document.getElementById('papers-container');
+        papersContainer.innerHTML = '';
+        papersContainer.appendChild(container);
+    })();
+    </script>
 </body>
 </html>
