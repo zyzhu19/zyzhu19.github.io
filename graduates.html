@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>历届毕业生 - 朱志颖</title>
     <style>
         body {
@@ -18,8 +18,15 @@
             text-align: center;
             padding: 2em 0;
         }
+        /* 新增：抬头副标题样式（加大并加粗） */
+        .header-subtitle {
+            font-size: 1.25rem; /* 加大字号 */
+            font-weight: 700;   /* 加粗 */
+            margin: 0.25rem 0 0 0;
+            color: #fff;
+        }
         main {
-            max-width: 800px;
+            max-width: 900px;
             margin: 2em auto;
             background: #fff;
             padding: 1.5em;
@@ -27,49 +34,185 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
         h1, h2 { margin: 0 0 0.5em 0; color: #007acc; }
-        ul { padding-left: 1.2em; }
         .year-section { margin-bottom: 1.2em; }
+        .degree { font-weight: 600; margin-bottom: 0.5em; color: #444; }
+        .degree a.degree-link {
+            color: #007acc;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(0,122,204,0.35);
+            padding-bottom: 1px;
+            cursor: pointer;
+        }
+        .degree a.degree-link:hover { text-decoration: underline; }
+        .students-text { color: #333; margin-left: 0.2rem; }
+
+        /* modal */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            padding: 1rem;
+        }
+        .overlay.open { display: flex; }
+        .modal {
+            background: #fff;
+            width: 100%;
+            max-width: 720px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            animation: pop .12s ease;
+        }
+        @keyframes pop { from { transform: scale(.98); opacity: .85 } to { transform: scale(1); opacity: 1 } }
+        .modal-header {
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-title { font-size: 1.05rem; color: #007acc; margin: 0; }
+        .close-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+        }
+        .modal-body { padding: 0.8rem; text-align: center; }
+        .modal-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            background: #fafafa;
+            border: 1px solid #eee;
+        }
+        .modal-caption { margin-top: 0.6rem; color: #555; }
+
         .back-link { display: inline-block; margin-top: 1em; }
         a { color: #007acc; text-decoration: none; }
         a:hover { text-decoration: underline; }
+
+        @media (max-width: 480px) {
+            .modal { max-width: 95%; }
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>历届毕业生</h1>
-        <p>指导教师：朱志颖</p>
+        <!-- 已按你的要求将原来的“指导教师：朱志颖”改为“历届毕业生”，并使用 .header-subtitle 加大加粗 -->
+        <p class="header-subtitle">历届毕业生</p>
     </header>
     <main>
-        <p>按年份列出（最新年份在前）：</p>
+        <!-- 说明：我已将每一届的“本科生”三个字做成可点的超链接（仅一张照片/届）。
+             点击会弹出模态框显示该届的单张照片与该届学生名单作为说明文字。
+             请将对应照片放到 photos/ 目录，文件名与 data-photo 字段一致；若没有照片，会使用 photos/placeholder.jpg。 -->
 
         <div class="year-section">
-            <h2>2026 — 硕士生</h2>
-            <ul>
-                <li>许智铄</li>
-                <li>祖宇</li>
-            </ul>
+            <h2>2026</h2>
+            <div class="degree">硕士生：<span class="students-text">许智铄、祖宇</span></div>
         </div>
 
         <div class="year-section">
-            <h2>2025 — 本科生</h2>
-            <ul>
-                <li>麦麦提玉苏甫·麦提尼亚孜</li>
-            </ul>
+            <h2>2025</h2>
+            <!-- 本科生三个字变为链接，data-photo 指向该届的唯一照片，data-caption 为要显示的名单 -->
+            <div class="degree">
+                <a href="#" class="degree-link"
+                   data-photo="photos/undergrad_2025.jpg"
+                   data-caption="麦麦提玉苏甫·麦提尼亚孜"
+                   title="查看 2025 年本科生照片">本科生：</a>
+                <span class="students-text">麦麦提玉苏甫·麦提尼亚孜</span>
+            </div>
         </div>
 
         <div class="year-section">
-            <h2>2024 — 本科生</h2>
-            <ul>
-                <li>周培文</li>
-                <li>边成杰</li>
-                <li>熊宇松</li>
-            </ul>
+            <h2>2024</h2>
+            <div class="degree">
+                <a href="#" class="degree-link"
+                   data-photo="photos/undergrad_2024.jpg"
+                   data-caption="周培文、边成杰、熊宇松"
+                   title="查看 2024 年本科生照片">本科生：</a>
+                <span class="students-text">周培文、边成杰、熊宇松</span>
+            </div>
         </div>
 
         <p class="back-link"><a href="index.html">&larr; 返回主页</a></p>
     </main>
+
+    <!-- modal / overlay -->
+    <div id="overlay" class="overlay" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title"></h3>
+                <button class="close-btn" id="modalClose" aria-label="关闭">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="" />
+                <div id="modalCaption" class="modal-caption"></div>
+            </div>
+        </div>
+    </div>
+
     <footer style="text-align:center;padding:1em 0;color:#666;">
         &copy; 2025 朱志颖
     </footer>
+
+    <script>
+        (function() {
+            const overlay = document.getElementById('overlay');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalCaption = document.getElementById('modalCaption');
+            const modalClose = document.getElementById('modalClose');
+
+            const placeholder = 'photos/placeholder.jpg';
+
+            function openModal(title, photoSrc, captionText) {
+                modalTitle.textContent = title;
+                modalCaption.textContent = captionText || '';
+                modalImage.src = photoSrc || placeholder;
+                modalImage.alt = title + ' 照片';
+                overlay.classList.add('open');
+                overlay.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeModal() {
+                overlay.classList.remove('open');
+                overlay.setAttribute('aria-hidden', 'true');
+                modalImage.src = '';
+                modalCaption.textContent = '';
+                modalTitle.textContent = '';
+            }
+
+            document.querySelectorAll('a.degree-link').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const photo = el.getAttribute('data-photo') || '';
+                    const caption = el.getAttribute('data-caption') || '';
+                    const yearNode = el.closest('.year-section')?.querySelector('h2');
+                    const year = yearNode ? yearNode.textContent.trim() : '';
+                    const title = year ? (year + ' 年 — 本科生') : '本科生';
+                    // 先测试图片是否可加载，失败则回退占位图
+                    const testImg = new Image();
+                    testImg.onload = () => openModal(title, photo, caption);
+                    testImg.onerror = () => openModal(title, placeholder, caption);
+                    testImg.src = photo || placeholder;
+                });
+            });
+
+            modalClose.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeModal();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+            });
+        })();
+    </script>
 </body>
 </html>
