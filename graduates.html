@@ -118,6 +118,7 @@
             <div class="degree">
                 <a href="#" class="degree-link"
                    data-photo="Graduate_2026.jpg"
+                   data-type="研究生"
                    data-caption="许智铄、姚旭东、祖宇"
                    title="查看 2026 年研究生合影">研究生合影：</a>
                 <span class="students-text">许智铄、姚旭东、祖宇</span>
@@ -125,6 +126,7 @@
             <div class="degree">
                 <a href="#" class="degree-link"
                    data-photo="undergrad_2026.jpg"
+                   data-type="本科生"
                    data-caption="文睿、刘敏"
                    title="查看 2026 年本科生合影">本科生合影：</a>
                 <span class="students-text">文睿、刘敏</span>
@@ -137,6 +139,7 @@
             <div class="degree">
                 <a href="#" class="degree-link"
                    data-photo="undergrad_2025.jpg"
+                   data-type="本科生"
                    data-caption="麦麦提玉苏甫·麦提尼亚孜"
                    title="查看 2025 年本科生合影">本科生合影：</a>
                 <span class="students-text">麦麦提玉苏甫·麦提尼亚孜</span>
@@ -148,6 +151,7 @@
             <div class="degree">
                 <a href="#" class="degree-link"
                    data-photo="undergrad_2024.jpg"
+                   data-type="本科生"
                    data-caption="边成杰、熊宇松、周培文"
                    title="查看 2024 年本科生合影">本科生合影：</a>
                 <span class="students-text">周培文、边成杰、熊宇松</span>
@@ -207,9 +211,10 @@
                     e.preventDefault();
                     const photo = el.getAttribute('data-photo') || '';
                     const caption = el.getAttribute('data-caption') || '';
+                    const type = el.getAttribute('data-type') || '本科生';
                     const yearNode = el.closest('.year-section')?.querySelector('h2');
                     const year = yearNode ? yearNode.textContent.trim() : '';
-                    const title = year ? (year + ' 年 — 本科生') : '本科生';
+                    const title = year ? (year + ' 年 — ' + type) : type;
                     // 先测试图片是否可加载，失败则回退占位图
                     const testImg = new Image();
                     testImg.onload = () => openModal(title, photo, caption);
